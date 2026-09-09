@@ -1,0 +1,9 @@
+praw
+google-api-python-client
+notion-client
+pydantic
+python-dotenv
+requests
+
+[dev]
+pytest

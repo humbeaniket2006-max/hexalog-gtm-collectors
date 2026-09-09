@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: hexalog-gtm-collectors
+Version: 0.1.0
+Summary: Read-only GTM signal collectors for Hexalog
+Requires-Python: >=3.10
+Requires-Dist: praw
+Requires-Dist: google-api-python-client
+Requires-Dist: notion-client
+Requires-Dist: pydantic
+Requires-Dist: python-dotenv
+Requires-Dist: requests
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
