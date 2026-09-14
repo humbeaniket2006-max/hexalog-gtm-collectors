@@ -4,12 +4,12 @@ from __future__ import annotations
 import json
 import os
 from dataclasses import dataclass
-from typing import Any
 
 from dotenv import load_dotenv
 
 DEFAULT_SUBREDDITS = ["freightforwarding", "IndiaBusiness", "smallbusinessindia"]
-DEFAULT_KEYWORDS = ["Cogoport", "ClickPost", "Shiprocket", "WareIQ", "ShipGlobal", "customs", "landed cost", "freight forwarder", "export", "import", "cross border", "MSME"]
+DEFAULT_PAIN_POINT_KEYWORDS = ["customs", "landed cost", "freight forwarder", "export", "import", "cross border", "MSME"]
+DEFAULT_COMPETITOR_KEYWORDS = ["Cogoport", "ClickPost", "Shiprocket", "WareIQ", "ShipGlobal", "Easyship", "Shipsy", "Fastrr"]
 DEFAULT_CHANNELS = {
     "cogoport": "UCkcDvMjmhw_q3Z6c6bINTaA",
     "clickpost": "UCwzueyGjeYNWE9QWVw4QlSQ",
@@ -20,15 +20,22 @@ DEFAULT_CHANNELS = {
     "paresh_solanki": "UCh9Fu-dnyAqKd4m3K0qc8bA",
     "iiiem": "UCYUXVErD8rZxEv0ZsAd4oOA",
     "export_import_india": "UC72xtAoQ3HBB8wn6so7K-GA",
+    "easyship": "UCvo8yyvVuQ4wsyTlx03YEZA",
+    "shipsy": "UCfgfvtdQpIFLCIUbZ8IUGGg",
 }
 
-def _json_list(name: str, default: list[str]) -> list[str]:
+
+def _csv_list(name: str, default: list[str]) -> list[str]:
     value = os.getenv(name)
-    return json.loads(value) if value else default
+    if not value:
+        return default
+    return [item.strip() for item in value.split(",") if item.strip()]
+
 
 def _json_dict(name: str, default: dict[str, str]) -> dict[str, str]:
     value = os.getenv(name)
     return json.loads(value) if value else default
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -38,8 +45,10 @@ class Settings:
     youtube_api_key: str
     notion_api_key: str
     reddit_subreddits: list[str]
-    reddit_keywords: list[str]
+    reddit_pain_point_keywords: list[str]
+    reddit_competitor_keywords: list[str]
     youtube_channels: dict[str, str]
+
 
 def load_settings(*, require_reddit: bool = False, require_youtube: bool = False) -> Settings:
     load_dotenv()
@@ -51,4 +60,14 @@ def load_settings(*, require_reddit: bool = False, require_youtube: bool = False
     missing = [name for name in required if not os.getenv(name)]
     if missing:
         raise RuntimeError("Missing required environment variable(s): " + ", ".join(missing))
-    return Settings(os.getenv("REDDIT_CLIENT_ID", ""), os.getenv("REDDIT_CLIENT_SECRET", ""), os.getenv("REDDIT_USER_AGENT", ""), os.getenv("YOUTUBE_API_KEY", ""), os.getenv("NOTION_API_KEY", ""), _json_list("REDDIT_SUBREDDITS", DEFAULT_SUBREDDITS), _json_list("REDDIT_KEYWORDS", DEFAULT_KEYWORDS), _json_dict("YOUTUBE_CHANNELS", DEFAULT_CHANNELS))
+    return Settings(
+        os.getenv("REDDIT_CLIENT_ID", ""),
+        os.getenv("REDDIT_CLIENT_SECRET", ""),
+        os.getenv("REDDIT_USER_AGENT", ""),
+        os.getenv("YOUTUBE_API_KEY", ""),
+        os.getenv("NOTION_API_KEY", ""),
+        _csv_list("REDDIT_SUBREDDITS", DEFAULT_SUBREDDITS),
+        _csv_list("REDDIT_PAIN_POINT_KEYWORDS", DEFAULT_PAIN_POINT_KEYWORDS),
+        _csv_list("REDDIT_COMPETITOR_KEYWORDS", DEFAULT_COMPETITOR_KEYWORDS),
+        _json_dict("YOUTUBE_CHANNELS", DEFAULT_CHANNELS),
+    )

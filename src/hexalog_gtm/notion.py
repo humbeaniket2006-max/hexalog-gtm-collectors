@@ -40,7 +40,7 @@ class NotionHelper:
             if isinstance(value, dict) and "type" in value:
                 kind, raw = value["type"], value.get("value")
             else:
-                kind, raw = ("title" if key == "Title" else "select" if key in {"Platform", "Type", "Status"} else "url" if key.endswith("URL") or key == "URL" else "number" if key in {"Score/Views", "Comments Count"} else "date" if key.endswith("At") or key == "Scheduled Publish Time" else "rich_text"), value
+                kind, raw = ("title" if key == "Title" else "select" if key in {"Platform", "Type", "Status", "Sentiment"} else "url" if key.endswith("URL") or key == "URL" else "number" if key in {"Score/Views", "Comments Count"} else "date" if key.endswith("At") or key == "Scheduled Publish Time" else "rich_text"), value
             if kind in {"title", "rich_text"}:
                 output[key] = {kind: [{"type": "text", "text": {"content": str(raw)}}]}
             elif kind == "select": output[key] = {"select": {"name": str(raw)}}

@@ -15,6 +15,6 @@ class Notion:
     def page_exists(self, _, key): return key == "old"
     def create_page(self, _, props): self.created.append(props)
 def test_playlist_collection_and_deduplication():
-    s = Settings("", "", "", "key", "token", [], [], {"channel":"id"}); n = Notion()
+    s = Settings("", "", "", "key", "token", [], [], [], {"channel":"id"}); n = Notion()
     collect_signals(s, Youtube(), n)
     assert [p["External ID"] for p in n.created] == ["new"]
