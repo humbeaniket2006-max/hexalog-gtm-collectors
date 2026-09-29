@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 DEFAULT_SUBREDDITS = ["freightforwarding", "IndiaBusiness", "smallbusinessindia"]
 DEFAULT_PAIN_POINT_KEYWORDS = ["customs", "landed cost", "freight forwarder", "export", "import", "cross border", "MSME"]
-DEFAULT_COMPETITOR_KEYWORDS = ["Cogoport", "ClickPost", "Shiprocket", "WareIQ", "ShipGlobal", "Easyship", "Shipsy", "Fastrr"]
+DEFAULT_COMPETITOR_KEYWORDS = ["Cogoport", "ClickPost", "Shiprocket", "WareIQ", "ShipGlobal", "Easyship", "Shipsy", "Fastrr", "Locus", "Flexport", "FedEx", "DHL"]
 DEFAULT_CHANNELS = {
     "cogoport": "UCkcDvMjmhw_q3Z6c6bINTaA",
     "clickpost": "UCwzueyGjeYNWE9QWVw4QlSQ",
@@ -22,6 +22,10 @@ DEFAULT_CHANNELS = {
     "export_import_india": "UC72xtAoQ3HBB8wn6so7K-GA",
     "easyship": "UCvo8yyvVuQ4wsyTlx03YEZA",
     "shipsy": "UCfgfvtdQpIFLCIUbZ8IUGGg",
+    "locus": "UCtbHoTbKKmhTAkKu4zY8WKA",
+    "flexport": "UCWT4cbEDHlCE9mMfjRJRX4w",
+    "fedex": "UCq5UqvM2Pob3wNX2tJUx7Kg",
+    "dhl": "UCfsBLXEWNtr26TM2LLpKbGQ",
 }
 
 
